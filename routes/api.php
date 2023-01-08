@@ -14,6 +14,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VerifyEmailController;
 
+Route::post('/login', [AuthController::class, 'authenticate']);
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'index'])
