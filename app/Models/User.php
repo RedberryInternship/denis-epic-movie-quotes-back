@@ -25,4 +25,19 @@ class User extends Authenticatable
 	{
 		$this->attributes['password'] = bcrypt($password);
 	}
+
+	public function primaryEmail()
+	{
+		return $this->emails()->where('is_primary', true)->first();
+	}
+
+	public function primaryEmailAddress()
+	{
+		return $this->primaryEmail()->address;
+	}
+
+	public function emails()
+	{
+		return $this->hasOne(Email::class, 'user_id');
+	}
 }
