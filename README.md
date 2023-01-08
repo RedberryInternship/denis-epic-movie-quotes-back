@@ -52,11 +52,19 @@
    DB_DATABASE=epic_movie_quotes <br>
    DB_USERNAME=<your_username> <br>
    DB_PASSWORD=<your_password> <br>
-2. Run database migrations:
+2. Modify mail configuration in your `.env` file:
+   > MAIL_MAILER=&lt;mailer&gt; <br>
+   MAIL_HOST=&lt;example.com&gt; <br>
+   MAIL_PORT=&lt;0000&gt; <br>
+   MAIL_USERNAME=&lt;your_username&gt; <br>
+   MAIL_PASSWORD=&lt;password&gt; <br>
+   MAIL_ENCRYPTION=&lt;your_password&gt; <br>
 
-```shell
-    php artisan migrate
-```
+3. Run database migrations:
+    ```shell
+        php artisan migrate
+    ```
+   
 
 #
 
@@ -67,7 +75,6 @@ Start the development server:
 ```shell
     php artisan serve
 ```
-
 
 ###
 
