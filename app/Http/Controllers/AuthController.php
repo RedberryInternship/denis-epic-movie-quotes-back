@@ -14,10 +14,10 @@ class AuthController extends Controller
 	{
 		$attributes = $request->validated();
 
-		$found_email = Email::where('address', $attributes['username'])->first();
-		if ($found_email)
+		$foundEmail = Email::where('address', $attributes['username'])->first();
+		if ($foundEmail)
 		{
-			$attributes['username'] = User::find($found_email->user_id)->username;
+			$attributes['username'] = User::find($foundEmail->user_id)->username;
 		}
 
 		$attributes = [
