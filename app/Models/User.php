@@ -2,43 +2,71 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\VerifyEmailNotification;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
 	use HasApiTokens, HasFactory, Notifiable;
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array<int, string>
-	 */
 	protected $fillable = [
-		'name',
-		'email',
+		'username',
 		'password',
 	];
 
-	/**
-	 * The attributes that should be hidden for serialization.
-	 *
-	 * @var array<int, string>
-	 */
 	protected $hidden = [
 		'password',
 		'remember_token',
 	];
 
-	/**
-	 * The attributes that should be cast.
-	 *
-	 * @var array<string, string>
-	 */
-	protected $casts = [
-		'email_verified_at' => 'datetime',
-	];
+	public function hasVerifiedEmail(): bool
+	{
+		return !is_null($this->primaryEmail()->verified_at);
+	}
+
+	public function markEmailAsVerified()
+	{
+		return $this->primaryEmail()->forceFill([
+			'verified_at' => $this->freshTimestamp(),
+		])->save();
+	}
+
+	public function getEmailForVerification()
+	{
+		return $this->primaryEmailAddress();
+	}
+
+	public function routeNotificationForMail($notification)
+	{
+		return $this->primaryEmailAddress();
+	}
+
+	protected function setPasswordAttribute($password)
+	{
+		$this->attributes['password'] = bcrypt($password);
+	}
+
+	public function sendEmailVerificationNotification()
+	{
+		$this->notify(new VerifyEmailNotification);
+	}
+
+	public function primaryEmail()
+	{
+		return $this->emails()->where('is_primary', true)->first();
+	}
+
+	public function primaryEmailAddress()
+	{
+		return $this->primaryEmail()->address;
+	}
+
+	public function emails()
+	{
+		return $this->hasOne(Email::class, 'user_id');
+	}
 }
