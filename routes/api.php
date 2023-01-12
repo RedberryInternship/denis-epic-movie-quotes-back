@@ -12,10 +12,12 @@
 */
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\VerifyEmailController;
 
 Route::post('/login', [AuthController::class, 'authenticate']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/forgot-password', [ForgotPasswordController::class, 'email']);
 
 Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'index'])
 	->middleware(['signed'])->name('verification.verify');
