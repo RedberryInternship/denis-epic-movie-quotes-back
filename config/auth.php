@@ -60,7 +60,7 @@ return [
 
 	'providers'        => [
 		'users' => [
-			'driver' => 'eloquent',
+			'driver' => 'user-with-multiple-emails',
 			'model'  => App\Models\User::class,
 		],
 
