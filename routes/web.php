@@ -10,3 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use App\Http\Controllers\GoogleController;
+
+Route::get('/oauth/redirect', [GoogleController::class, 'redirect']);
+Route::get('/oauth/callback', [GoogleController::class, 'callback']);
