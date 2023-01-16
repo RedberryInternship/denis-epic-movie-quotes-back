@@ -12,7 +12,7 @@ class ResetPasswordNotification extends ResetPassword
 
 	protected function resetUrl($notifiable)
 	{
-		$frontendUrl = config('app.frontend_url');
+		$frontendUrl = config('app.frontend_url') . '/' . app()->getLocale() . '/';
 
 		return url($frontendUrl) . '?' . http_build_query([
 			'password_reset' => true,

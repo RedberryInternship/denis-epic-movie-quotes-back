@@ -13,7 +13,7 @@ class VerifyEmailNotification extends VerifyEmail
 
 	protected function verificationUrl($notifiable)
 	{
-		$frontendUrl = config('app.frontend_url');
+		$frontendUrl = config('app.frontend_url') . '/' . app()->getLocale() . '/';
 
 		$verifyUrl = URL::temporarySignedRoute(
 			'verification.verify',
