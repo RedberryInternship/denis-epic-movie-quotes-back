@@ -16,6 +16,8 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\ResetPasswordController;
 
+Route::get('/heartbeat', fn () => response()->json(['success' => true]));
+
 Route::post('/login', [AuthController::class, 'authenticate']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/forgot-password', [ForgotPasswordController::class, 'email']);
