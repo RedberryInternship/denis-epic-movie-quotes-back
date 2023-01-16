@@ -13,12 +13,15 @@ class GoogleController extends Controller
 {
 	public function redirect()
 	{
-		return Socialite::driver('google')->redirect();
+		session(['locale' => app()->getLocale()]);
+		return redirect(Socialite::driver('google')
+				->redirect()->getTargetUrl() . '&hl=' . app()->getLocale());
 	}
 
 	public function callback(Request $request)
 	{
-		$frontendUrl = config('app.frontend_url');
+		app()->setLocale(session('locale'));
+		$frontendUrl = config('app.frontend_url') . '/' . app()->getLocale() . '/';
 		$googleUser = Socialite::driver('google')->user();
 
 		$foundEmail = Email::where('address', $googleUser->getEmail())->first();
@@ -36,8 +39,7 @@ class GoogleController extends Controller
 
 			return redirect(($frontendUrl) . '?' . http_build_query([
 				'oauth_error' => true,
-				'message'     => 'Failed to Sign in with Google – a user with this email address already exists.' .
-								 ' Please log in with your Movie Quotes password',
+				'message'     => __('auth.google_failed_already_exists'),
 			]));
 		}
 

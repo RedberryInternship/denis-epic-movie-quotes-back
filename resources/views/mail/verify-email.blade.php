@@ -16,9 +16,9 @@
 </div>
 
 <div style="margin-left: 10%; margin-right: 10%; margin-bottom: 100px">
-    <p style="margin-bottom: 24px">Hola {{ $username }}!</p>
+    <p style="margin-bottom: 24px">{{ __('mail.hi') }} {{ $username }}!</p>
     <p style="margin-bottom: 40px">
-        Thanks for joining Movie quotes! We really appreciate it. Please click the button below to verify your account:
+        {{ __('mail.register_thanks') }}
     </p>
 
     <a
@@ -26,15 +26,14 @@
     border-right: 13px; border-color: #E31221; border-style: solid; border-radius: 4px; font-size: 16px"
         href="{{ $verificationUrl }}"
     >
-        Verify account
+        {{ __('mail.verify') }}
     </a>
-    <p style="margin-bottom: 24px; margin-top: 48px">If clicking doesn't work, you can try copying and pasting it to
-        your browser:</p>
+    <p style="margin-bottom: 24px; margin-top: 48px">{{ __('mail.copy_instruction') }}</p>
     <a style="text-decoration: none; color: #DDCCAA; word-break: break-all; overflow-wrap: break-word;"
        href="{{ $verificationUrl }}">{{ $verificationUrl }}
     </a>
-    <p style="margin-bottom: 24px; margin-top: 40px">If you have any problems, please contact us: support@moviequotes.ge</p>
-    <p>MovieQuotes Crew</p>
+    <p style="margin-bottom: 24px; margin-top: 40px">{{ __('mail.support_suggestion') }}: support@moviequotes.ge</p>
+    <p>MovieQuotes {{ __('mail.crew') }}</p>
 </div>
 
 </body>

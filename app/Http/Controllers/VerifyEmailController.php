@@ -14,6 +14,6 @@ class VerifyEmailController extends Controller
 			return response()->json(['message' => $error], 403);
 		}
 
-		return response()->json(['message' => 'Your account has been activated.']);
+		return response()->json(['message' => __('auth.account_activated')]);
 	}
 }
