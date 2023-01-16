@@ -39,8 +39,7 @@ class GoogleController extends Controller
 
 			return redirect(($frontendUrl) . '?' . http_build_query([
 				'oauth_error' => true,
-				'message'     => 'Failed to Sign in with Google – a user with this email address already exists.' .
-								 ' Please log in with your Movie Quotes password',
+				'message'     => __('auth.google_failed_already_exists'),
 			]));
 		}
 

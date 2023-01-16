@@ -26,6 +26,7 @@ class ResetPasswordNotification extends ResetPassword
 		$resetUrl = $this->resetUrl($notifiable);
 
 		return (new MailMessage)
+			->subject(__('mail.reset_subject'))
 			->view(
 				'mail.reset-password',
 				['username' => $notifiable->username, 'resetUrl' => $resetUrl]

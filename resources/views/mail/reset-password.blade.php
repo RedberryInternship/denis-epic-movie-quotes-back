@@ -16,28 +16,24 @@
 </div>
 
 <div style="margin-left: 10%; margin-right: 10%; margin-bottom: 100px">
-    <p style="margin-bottom: 24px">Hola {{ $username }}!</p>
-    <p style="margin-bottom: 40px">
-        You are receiving this email because you requested a password reset for your account. Please click the button
-        below to reset your password:
-    </p>
+    <p style="margin-bottom: 24px">{{ __('mail.hi') }} {{ $username }}!</p>
+    <p style="margin-bottom: 40px">{{ __('mail.password_intro') }}</p>
 
     <a
         style="color: white; text-decoration: none; background-color: #E31221; border-bottom: 8px; border-top: 8px; border-left: 13px;
     border-right: 13px; border-color: #E31221; border-style: solid; border-radius: 4px; font-size: 16px"
         href="{{ $resetUrl }}"
     >
-        Reset password
+        {{ __('mail.reset_password') }}
     </a>
-    <p style="margin-bottom: 24px; margin-top: 48px">If clicking doesn't work, you can try copying and pasting it to
-        your browser:</p>
+    <p style="margin-bottom: 24px; margin-top: 48px">{{ __('mail.copy_instruction') }}</p>
     <a style="text-decoration: none; color: #DDCCAA; word-break: break-all; overflow-wrap: break-word;"
        href="{{ $resetUrl }}">{{ $resetUrl }}
     </a>
     <p style="margin-bottom: 24px; margin-top: 40px">
-        If you have any problems, please contact us: support@moviequotes.ge
+        {{ __('mail.support_suggestion') }}: support@moviequotes.ge
     </p>
-    <p>MovieQuotes Crew</p>
+    <p>MovieQuotes {{ __('mail.crew') }}</p>
 </div>
 
 </body>

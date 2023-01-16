@@ -28,19 +28,19 @@ class AuthController extends Controller
 		if (!auth()->attempt($attributes))
 		{
 			return response()->json([
-				'message' => 'The credentials you entered are invalid',
+				'message' => __('auth.failed'),
 			], 401);
 		}
 		elseif (!auth()->user()->hasVerifiedEmail())
 		{
 			return response()->json([
-				'message' => 'Please verify your email address before logging in',
+				'message' => __('auth.verify'),
 			], 401);
 		}
 
 		$request->session()->regenerate();
 
-		return response()->json(['message' => 'Successfully logged in']);
+		return response()->json(['message' => __('auth.login_success')]);
 	}
 
 	public function register(RegisterRequest $request)
@@ -50,6 +50,6 @@ class AuthController extends Controller
 		Email::create(['address' => $attributes['email'], 'is_primary' => true, 'user_id' => $user->id]);
 
 		event(new Registered($user));
-		return response()->json(['message' => 'Successfully signed up']);
+		return response()->json(['message' => __('auth.register_success')]);
 	}
 }
