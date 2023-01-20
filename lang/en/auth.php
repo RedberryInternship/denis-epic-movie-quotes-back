@@ -18,6 +18,7 @@ return [
 	'verify'                       => 'Please verify your email address before logging in',
 	'login_success'                => 'Successfully logged in',
 	'register_success'             => 'Successfully signed up',
+	'logout_success'               => 'Successfully logged out',
 	'reset_sent'                   => 'Password reset link sent',
 	'google_failed_already_exists' => 'Failed to Sign in with Google – a user with this email address already exists. Please log in with your Movie Quotes password',
 	'password_changed'             => 'Password changed successfully',

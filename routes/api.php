@@ -28,4 +28,5 @@ Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'index'])
 
 Route::middleware('auth:sanctum')->group(function () {
 	Route::get('/user', fn () => auth()->user()->load('emails')->makeVisible(['google_id']));
+	Route::get('/logout', [AuthController::class, 'logout']);
 });
