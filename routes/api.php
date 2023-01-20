@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\ResetPasswordController;
 
@@ -29,4 +30,5 @@ Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'index'])
 Route::middleware('auth:sanctum')->group(function () {
 	Route::get('/user', fn () => auth()->user()->load('emails')->makeVisible(['google_id']));
 	Route::get('/logout', [AuthController::class, 'logout']);
+	Route::get('/newsfeed-quotes', [QuoteController::class, 'index']);
 });
