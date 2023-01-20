@@ -44,9 +44,10 @@ class GoogleController extends Controller
 		}
 
 		$userAttributes = [
-			'username'  => $this->generateUniqueUsername($googleUser->getName()),
-			'google_id' => $googleUser->getId(),
-			'password'  => '',
+			'username'        => $this->generateUniqueUsername($googleUser->getName()),
+			'google_id'       => $googleUser->getId(),
+			'password'        => '',
+			'profile_picture' => $googleUser->getAvatar(),
 		];
 
 		$user = User::create($userAttributes);

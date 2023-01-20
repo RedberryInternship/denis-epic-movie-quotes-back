@@ -18,11 +18,13 @@ class User extends Authenticatable implements MustVerifyEmail
 		'username',
 		'password',
 		'google_id',
+		'profile_picture',
 	];
 
 	protected $hidden = [
 		'password',
 		'remember_token',
+		'google_id',
 	];
 
 	public function hasVerifiedEmail(): bool

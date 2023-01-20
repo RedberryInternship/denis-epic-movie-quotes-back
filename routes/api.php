@@ -26,6 +26,6 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset']);
 Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'index'])
 	->middleware(['signed'])->name('verification.verify');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-	return auth()->user();
+Route::middleware('auth:sanctum')->group(function () {
+	Route::get('/user', fn () => auth()->user()->load('emails')->makeVisible(['google_id']));
 });
