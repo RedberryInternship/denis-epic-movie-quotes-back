@@ -35,4 +35,9 @@ class Quote extends Model
 	{
 		return $this->hasMany(Like::class);
 	}
+
+	public function scopeCurrentUserLikes($query)
+	{
+		$query->with(['likes' => fn ($query) => $query->where('user_id', auth()->user()->id)]);
+	}
 }

@@ -13,9 +13,9 @@ class QuoteController extends Controller
 				'user',
 				'movie',
 				'comments.user',
-				'likes' => fn ($query) => $query->where('user_id', '=', auth()->user()->id),  // contains logged in user's like if exists, else empty
 			]
 		)
+			->currentUserLikes()
 			->withCount('likes')
 			->orderBy('id', 'desc')->cursorPaginate(2);
 
