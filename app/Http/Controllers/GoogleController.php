@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Email;
 use App\Models\User;
 use Auth;
+use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
@@ -22,8 +23,18 @@ class GoogleController extends Controller
 	{
 		app()->setLocale(session('locale'));
 		$frontendUrl = config('app.frontend_url') . '/' . app()->getLocale() . '/';
-		$googleUser = Socialite::driver('google')->user();
 
+		try
+		{
+			$googleUser = Socialite::driver('google')->user();
+		}
+		catch (Exception $exception)
+		{
+			return redirect(($frontendUrl) . '?' . http_build_query([
+				'oauth_error' => true,
+				'message'     => __('auth.google_failed'),
+			]));
+		}
 		$foundEmail = Email::where('address', $googleUser->getEmail())->first();
 
 		if ($foundEmail)
@@ -44,9 +55,10 @@ class GoogleController extends Controller
 		}
 
 		$userAttributes = [
-			'username'  => $this->generateUniqueUsername($googleUser->getName()),
-			'google_id' => $googleUser->getId(),
-			'password'  => '',
+			'username'        => $this->generateUniqueUsername($googleUser->getName()),
+			'google_id'       => $googleUser->getId(),
+			'password'        => '',
+			'profile_picture' => $googleUser->getAvatar(),
 		];
 
 		$user = User::create($userAttributes);
@@ -60,7 +72,7 @@ class GoogleController extends Controller
 		);
 		event(new Registered($user));
 
-		Auth::login($user);
+		Auth::login($user, true);
 		$request->session()->regenerate();
 		return redirect($frontendUrl . '/home');
 	}

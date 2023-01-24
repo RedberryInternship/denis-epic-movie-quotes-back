@@ -52,4 +52,10 @@ class AuthController extends Controller
 		event(new Registered($user));
 		return response()->json(['message' => __('auth.register_success')]);
 	}
+
+	public function logout()
+	{
+		auth()->guard('web')->logout();
+		return response()->json(['message' => __('auth.logout_success')]);
+	}
 }
