@@ -11,6 +11,11 @@ class VerifyEmailNotification extends VerifyEmail
 {
 	use Queueable;
 
+	public function __construct($customEmail = null)
+	{
+		$this->customEmail = $customEmail;
+	}
+
 	protected function verificationUrl($notifiable)
 	{
 		$frontendUrl = config('app.frontend_url') . '/' . app()->getLocale() . '/';
@@ -20,11 +25,12 @@ class VerifyEmailNotification extends VerifyEmail
 			now()->addMinutes(config('auth.verification.expire', 120)),
 			[
 				'id'   => $notifiable->getKey(),
-				'hash' => sha1($notifiable->getEmailForVerification()),
+				'hash' => sha1($this->customEmail ?: $notifiable->getEmailForVerification()),
 			]
 		);
 
-		return $frontendUrl . '?verify_url=' . urlencode($verifyUrl);
+		$baseRedirectUrl = $frontendUrl . ($this->customEmail ? 'profile' : '');
+		return $baseRedirectUrl . '?verify_url=' . urlencode($verifyUrl);
 	}
 
 	public function toMail($notifiable)
@@ -35,7 +41,11 @@ class VerifyEmailNotification extends VerifyEmail
 			->subject(__('mail.verify_subject'))
 			->view(
 				'mail.verify-email',
-				['username' => $notifiable->username, 'verificationUrl' => $verificationUrl]
+				[
+					'username'           => $notifiable->username,
+					'verification_url'   => $verificationUrl,
+					'is_secondary_email' => $this->customEmail,
+				]
 			);
 	}
 }

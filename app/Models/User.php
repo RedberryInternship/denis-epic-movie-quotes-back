@@ -46,7 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
 	public function routeNotificationForMail($notification)
 	{
-		return $this->primaryEmailAddress();
+		return $notification->customEmail ?: $this->primaryEmailAddress();
 	}
 
 	protected function setPasswordAttribute($password)
