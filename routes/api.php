@@ -30,9 +30,14 @@ Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'index'])
 	->middleware(['signed'])->name('verification.verify');
 
 Route::middleware('auth:sanctum')->group(function () {
-	Route::get('/user', [ProfileController::class, 'get']);
 	Route::get('/logout', [AuthController::class, 'logout']);
+
 	Route::get('/newsfeed-quotes', [QuoteController::class, 'index']);
+
+	Route::controller(ProfileController::class)->group(function () {
+		Route::get('/user', 'get');
+		Route::put('/profile', 'update');
+	});
 
 	Route::controller(EmailController::class)->group(function () {
 		Route::post('/emails', 'store');
