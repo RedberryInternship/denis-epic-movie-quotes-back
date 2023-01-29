@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuoteController;
@@ -32,4 +33,10 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::get('/user', [ProfileController::class, 'get']);
 	Route::get('/logout', [AuthController::class, 'logout']);
 	Route::get('/newsfeed-quotes', [QuoteController::class, 'index']);
+
+	Route::controller(EmailController::class)->group(function () {
+		Route::post('/emails', 'store');
+		Route::delete('/emails/{email}', 'destroy');
+		Route::post('/emails/make-primary/{email}', 'makePrimary');
+	});
 });
