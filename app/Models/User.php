@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Storage;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -46,7 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
 	public function routeNotificationForMail($notification)
 	{
-		return $this->primaryEmailAddress();
+		return $notification->customEmail ?: $this->primaryEmailAddress();
 	}
 
 	protected function setPasswordAttribute($password)
@@ -82,5 +83,15 @@ class User extends Authenticatable implements MustVerifyEmail
 	public function emails()
 	{
 		return $this->hasMany(Email::class);
+	}
+
+	public function getProfilePictureAttribute($value): string
+	{
+		if (str_starts_with($value, 'http'))
+		{
+			return $value;
+		}
+
+		return Storage::url($value);
 	}
 }
