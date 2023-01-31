@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LikeController;
@@ -35,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 	Route::get('/newsfeed-quotes', [QuoteController::class, 'index']);
 	Route::post('/like', [LikeController::class, 'like']);
+	Route::post('/comment', [CommentController::class, 'store']);
 
 	Route::controller(ProfileController::class)->group(function () {
 		Route::get('/user', 'get');
