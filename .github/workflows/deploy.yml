@@ -55,3 +55,4 @@ jobs:
             npm install
             composer i
             php artisan migrate
+            php artisan optimize
