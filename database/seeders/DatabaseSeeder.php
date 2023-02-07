@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Comment;
+use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Quote;
 use App\Models\User;
@@ -18,6 +19,11 @@ class DatabaseSeeder extends Seeder
 	 */
 	public function run()
 	{
+		foreach (config('genres') as $genre)
+		{
+			Genre::create(['name' => $genre]);
+		}
+
 		User::factory()->create([
 			'username' => 'tester',
 		]);
@@ -52,5 +58,18 @@ class DatabaseSeeder extends Seeder
 				});
 			});
 		});
+	}
+
+	protected function getUniqueGenreIDs(): array
+	{
+		$genreIDs = [];
+		$genreCount = rand(1, 4);
+		for ($i = 1; $i <= $genreCount; $i++)
+		{
+			$genreIDs[] = fake()->unique()->numberBetween(1, count(config('genres')));
+		}
+		fake()->unique($reset = true);
+
+		return $genreIDs;
 	}
 }
