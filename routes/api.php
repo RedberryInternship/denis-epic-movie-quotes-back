@@ -41,6 +41,8 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::controller(MovieController::class)->group(function () {
 		Route::get('/movie/{id}', 'get');
 		Route::get('/movie', 'index');
+		Route::post('/movie', 'store');
+		Route::put('/movie/{movie}', 'update');
 	});
 
 	Route::get('/genre', [GenreController::class, 'index']);
