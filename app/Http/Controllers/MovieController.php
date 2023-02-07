@@ -82,6 +82,18 @@ class MovieController extends Controller
 		return response()->json(['message' => 'Movie updated successfully']);
 	}
 
+	public function destroy(Movie $movie)
+	{
+		if ($movie->user_id !== auth()->id())
+		{
+			return response()->json(['message' => 'You can only delete movies added by you'], 403);
+		}
+		info($movie->getRawOriginal('image'));
+		Storage::delete($movie->getRawOriginal('image'));
+		$movie->delete();
+		return response()->json(['message' => 'Movie deleted successfully']);
+	}
+
 	protected function reformatTranslatablesToArrays($attributes, $translatableKeys)
 	{
 		foreach ($translatableKeys as $key)

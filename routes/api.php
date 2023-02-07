@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
 		Route::get('/movie', 'index');
 		Route::post('/movie', 'store');
 		Route::put('/movie/{movie}', 'update');
+		Route::delete('/movie/{movie}', 'destroy');
 	});
 
 	Route::get('/genre', [GenreController::class, 'index']);
