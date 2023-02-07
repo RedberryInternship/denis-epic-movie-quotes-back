@@ -16,6 +16,17 @@ class Movie extends Model
 
 	public array $translatable = ['title', 'description', 'director'];
 
+	public function scopeFilter($sqlQuery, $searchQuery)
+	{
+		if (!$searchQuery)
+		{
+			return;
+		}
+
+		$sqlQuery->where('title', 'LIKE', "%$searchQuery%")
+				 ->orWhere('title->ka', 'LIKE', "%$searchQuery%");
+	}
+
 	public function user()
 	{
 		return $this->belongsTo(User::class);
