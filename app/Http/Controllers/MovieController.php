@@ -88,7 +88,6 @@ class MovieController extends Controller
 		{
 			return response()->json(['message' => 'You can only delete movies added by you'], 403);
 		}
-		info($movie->getRawOriginal('image'));
 		Storage::delete($movie->getRawOriginal('image'));
 		$movie->delete();
 		return response()->json(['message' => 'Movie deleted successfully']);
