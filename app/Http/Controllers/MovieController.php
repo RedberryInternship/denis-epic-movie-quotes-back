@@ -64,9 +64,12 @@ class MovieController extends Controller
 	{
 		$attributes = $request->validated();
 		$attributes = $this->reformatTranslatablesToArrays($attributes, ['title', 'description', 'director']);
-
 		unset($attributes['genres'], $attributes['image']);
-		$attributes['user_id'] = auth()->user()->id;
+
+		if ($movie->user_id !== auth()->id())
+		{
+			return response()->json(['message' => 'You can only edit movies added by you'], 403);
+		}
 
 		$image = request()->file('image');
 		if ($image)
