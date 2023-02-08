@@ -17,20 +17,22 @@ class MovieFactory extends Factory
 	public function definition()
 	{
 		return [
-			'title'       => [
+			'title'        => [
 				'en' => fake()->realTextBetween(5, 30),
 				'ka' => 'ფილმის სახელი',
 			],
-			'description' => [
+			'description'  => [
 				'en' => fake()->realTextBetween(50, 300),
 				'ka' => 'ფილმის დეტალური აღწერა',
 			],
-			'director'    => [
+			'director'     => [
 				'en' => fake()->name(),
 				'ka' => 'რეჟისორ გვარაძე',
 			],
-			'image'       => 'https://picsum.photos/seed/' . fake()->word() . '/720/400',
-			'user_id'     => 1,
+			'image'        => 'https://picsum.photos/seed/' . fake()->word() . '/720/400',
+			'release_year' => fake()->numberBetween(1950, 2023),
+			'budget'       => fake()->numberBetween(10_000, 10_000_000),
+			'user_id'      => 1,
 		];
 	}
 }

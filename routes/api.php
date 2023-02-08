@@ -15,7 +15,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\VerifyEmailController;
@@ -35,6 +37,16 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::get('/logout', [AuthController::class, 'logout']);
 
 	Route::get('/newsfeed-quotes', [QuoteController::class, 'index']);
+
+	Route::controller(MovieController::class)->group(function () {
+		Route::get('/movie/{id}', 'get');
+		Route::get('/movie', 'index');
+		Route::post('/movie', 'store');
+		Route::put('/movie/{movie}', 'update');
+		Route::delete('/movie/{movie}', 'destroy');
+	});
+
+	Route::get('/genre', [GenreController::class, 'index']);
 	Route::post('/like', [LikeController::class, 'like']);
 	Route::post('/comment', [CommentController::class, 'store']);
 
