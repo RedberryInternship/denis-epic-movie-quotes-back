@@ -68,6 +68,17 @@ class QuoteController extends Controller
 		return response()->json(['message' => 'Quote updated successfully']);
 	}
 
+	public function destroy(Quote $quote)
+	{
+		if ($quote->user_id !== auth()->id())
+		{
+			return response()->json(['message' => 'You can only delete quotes added by you'], 403);
+		}
+		Storage::delete($quote->getRawOriginal('image'));
+		$quote->delete();
+		return response()->json(['message' => 'Quote deleted successfully']);
+	}
+
 	protected function getAttributes($request)
 	{
 		$attributes = $request->validated();

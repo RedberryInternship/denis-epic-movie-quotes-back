@@ -40,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
 		Route::get('/newsfeed-quotes', 'index');
 		Route::post('/quote', 'store');
 		Route::put('/quote/{quote}', 'update');
+		Route::delete('/quote/{quote}', 'destroy');
 	});
 
 	Route::controller(MovieController::class)->group(function () {
