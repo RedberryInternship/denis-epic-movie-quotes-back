@@ -39,6 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::controller(QuoteController::class)->group(function () {
 		Route::get('/newsfeed-quotes', 'index');
 		Route::post('/quote', 'store');
+		Route::put('/quote/{quote}', 'update');
 	});
 
 	Route::controller(MovieController::class)->group(function () {
