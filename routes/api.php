@@ -36,7 +36,10 @@ Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'index'])
 Route::middleware('auth:sanctum')->group(function () {
 	Route::get('/logout', [AuthController::class, 'logout']);
 
-	Route::get('/newsfeed-quotes', [QuoteController::class, 'index']);
+	Route::controller(QuoteController::class)->group(function () {
+		Route::get('/newsfeed-quotes', 'index');
+		Route::post('/quote', 'store');
+	});
 
 	Route::controller(MovieController::class)->group(function () {
 		Route::get('/movie/{id}', 'get');

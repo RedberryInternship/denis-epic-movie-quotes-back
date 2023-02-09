@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\QuoteSearchRequest;
+use App\Http\Requests\QuoteStoreRequest;
+use App\Models\Movie;
 use App\Models\Quote;
 
 class QuoteController extends Controller
@@ -24,5 +26,36 @@ class QuoteController extends Controller
 			->orderBy('id', 'desc')->cursorPaginate(2);
 
 		return response()->json($quotes);
+	}
+
+	public function store(QuoteStoreRequest $request)
+	{
+		$attributes = $this->getAttributes($request);
+
+		$movie = Movie::find($request['movie_id']);
+		if ($movie->user_id !== auth()->id())
+		{
+			return response()->json(['message' => 'You can only add quotes to movies submitted by you'], 403);
+		}
+
+		$image = request()->file('image');
+		$attributes['image'] = $image->store('images');
+		$attributes['user_id'] = auth()->user()->id;
+
+		Quote::create($attributes);
+
+		return response()->json(['message' => 'Quote added successfully']);
+	}
+
+	protected function getAttributes($request)
+	{
+		$attributes = $request->validated();
+		$attributes['body'] = [
+			'en' => $attributes['body_en'],
+			'ka' => $attributes['body_ka'],
+		];
+		unset($attributes['body_en'], $attributes['body_ka']);
+
+		return $attributes;
 	}
 }

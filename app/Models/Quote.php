@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Storage;
 
 class Quote extends Model
 {
@@ -15,6 +16,16 @@ class Quote extends Model
 	protected $guarded = [];
 
 	public array $translatable = ['body'];
+
+	public function getImageAttribute($value): string
+	{
+		if (str_starts_with($value, 'http'))
+		{
+			return $value;
+		}
+
+		return Storage::url($value);
+	}
 
 	public function user()
 	{
