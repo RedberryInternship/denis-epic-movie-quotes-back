@@ -62,7 +62,7 @@ class Quote extends Model
 
 	public function scopeCurrentUserLikes($sqlQuery)
 	{
-		$sqlQuery->with(['likes' => fn ($query) => $sqlQuery->where('user_id', auth()->user()->id)]);
+		$sqlQuery->with(['likes' => fn ($likesQuery) => $likesQuery->where('user_id', auth()->user()->id)]);
 	}
 
 	protected function removeCharIfStartsWith($string, $character)
