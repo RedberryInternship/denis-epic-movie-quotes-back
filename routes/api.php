@@ -53,7 +53,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
 	Route::get('/genre', [GenreController::class, 'index']);
 	Route::post('/like', [LikeController::class, 'like']);
-	Route::post('/comment', [CommentController::class, 'store']);
+
+	Route::controller(CommentController::class)->group(function () {
+		Route::get('/quote/{quoteId}/comments', [CommentController::class, 'index']);
+		Route::post('/comment', [CommentController::class, 'store']);
+	});
 
 	Route::controller(ProfileController::class)->group(function () {
 		Route::get('/user', 'get');
