@@ -7,6 +7,11 @@ use App\Models\Comment;
 
 class CommentController extends Controller
 {
+	public function index($quoteId)
+	{
+		return response()->json(['data' => Comment::where('quote_id', $quoteId)->with('user')->get()]);
+	}
+
 	public function store(CommentRequest $request)
 	{
 		$attributes = $request->validated();
