@@ -18,6 +18,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\VerifyEmailController;
@@ -68,5 +69,11 @@ Route::middleware('auth:sanctum')->group(function () {
 		Route::post('/emails', 'store');
 		Route::delete('/emails/{email}', 'destroy');
 		Route::post('/emails/make-primary/{email}', 'makePrimary');
+	});
+
+	Route::controller(NotificationController::class)->group(function () {
+		Route::get('/notification', 'index');
+		Route::put('/notification/{notification}', 'markAsRead');
+		Route::post('/notification/mark-all-read', 'markAllAsRead');
 	});
 });
