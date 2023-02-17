@@ -10,6 +10,12 @@ class ResetPasswordNotification extends ResetPassword
 {
 	use Queueable;
 
+	public function __construct($token, $customEmail = null)
+	{
+		parent::__construct($token);
+		$this->customEmail = $customEmail;
+	}
+
 	protected function resetUrl($notifiable)
 	{
 		$frontendUrl = config('app.frontend_url') . '/' . app()->getLocale() . '/';
