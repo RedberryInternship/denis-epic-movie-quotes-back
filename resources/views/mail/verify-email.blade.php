@@ -8,7 +8,7 @@
 </head>
 <body style="background-color: #181624; color: #ffffff; font-family: sans-serif">
 
-<div style="margin-top: 78px; margin-bottom: 72px;">
+<div style="padding-top: 78px;">
     <div style="margin: 0 auto; width: 22px">
         @include('components.assets.logo')
     </div>
@@ -37,7 +37,7 @@
        href="{{ $verification_url }}">{{ $verification_url }}
     </a>
     <p style="margin-bottom: 24px; margin-top: 40px">{{ __('mail.support_suggestion') }}: support@moviequotes.ge</p>
-    <p>MovieQuotes {{ __('mail.crew') }}</p>
+    <p style="padding-bottom: 72px">MovieQuotes {{ __('mail.crew') }}</p>
 </div>
 
 </body>
