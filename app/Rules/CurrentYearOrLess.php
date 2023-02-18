@@ -11,7 +11,7 @@ class CurrentYearOrLess implements InvokableRule
 		$currentYear = now()->year;
 		if ($value > $currentYear)
 		{
-			$fail('The :attribute should not exceed the current year');
+			$fail(__('validation.max_current_year', ['attribute' => $attribute]));
 		}
 	}
 }

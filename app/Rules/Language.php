@@ -11,12 +11,12 @@ class Language implements InvokableRule
 	{
 		if ($language === 'en')
 		{
-			$this->language = 'English';
+			$this->language = __('validation.in_english');
 			$this->langRegex = 'a-zA-Z';
 		}
 		elseif ($language === 'ka')
 		{
-			$this->language = 'Georgian';
+			$this->language = __('validation.in_georgian');
 			$this->langRegex = '\p{Georgian}';
 		}
 		else
@@ -29,7 +29,7 @@ class Language implements InvokableRule
 	{
 		if (!preg_match('/^[' . $this->langRegex . '\s\p{P}\p{N}\p{S}]+$/u', $value))
 		{
-			$fail("This field should be written in $this->language");
+			$fail(__('validation.language') . $this->language);
 		}
 	}
 }

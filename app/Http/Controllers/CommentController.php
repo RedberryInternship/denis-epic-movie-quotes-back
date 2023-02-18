@@ -34,6 +34,6 @@ class CommentController extends Controller
 			NotificationEvent::dispatch($notification);
 		}
 
-		return response()->json(['message' => 'Comment created successfully']);
+		return response()->json(['message' => __('responses.comment_created')]);
 	}
 }

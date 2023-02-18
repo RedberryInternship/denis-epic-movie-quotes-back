@@ -13,31 +13,31 @@ class EmailController extends Controller
 		$email = $request->validated()['email'];
 		Email::create(['address' => $email, 'is_primary' => false, 'user_id' => auth()->user()->id]);
 		auth()->user()->notify(new VerifyEmailNotification($email));
-		return response()->json(['message' => 'Email added successfully']);
+		return response()->json(['message' => __('responses.email_created')]);
 	}
 
 	public function destroy(Email $email)
 	{
 		if (!$email->user() === auth()->user())
 		{
-			return response()->json(['message' => 'You can\'t delete another user\'s email!'], 403);
+			return response()->json(['message' => __('responses.email_delete_forbidden')], 403);
 		}
 
 		if ($email->is_primary)
 		{
-			return response()->json(['message' => 'You can\'t your primary email!'], 400);
+			return response()->json(['message' => __('responses.email_delete_primary')], 400);
 		}
 
 		$email->delete();
 
-		return response()->json(['message' => 'Email deleted successfully']);
+		return response()->json(['message' => __('responses.email_delete_success')]);
 	}
 
 	public function makePrimary(Email $email)
 	{
 		if (!$email->user() === auth()->user())
 		{
-			return response()->json(['message' => 'You can\'t modify another user\'s email!'], 403);
+			return response()->json(['message' => __('responses.email_modify_forbidden')], 403);
 		}
 
 		auth()->user()->emails()
@@ -47,6 +47,6 @@ class EmailController extends Controller
 		$email->is_primary = true;
 		$email->save();
 
-		return response()->json(['message' => 'Primary email set successfully']);
+		return response()->json(['message' => __('responses.email_primary_success')]);
 	}
 }

@@ -18,7 +18,7 @@ class NotificationController extends Controller
 	{
 		if ($notification->to_user_id !== auth()->id())
 		{
-			return response()->json(['message' => "You can't update another user's notifications"], 403);
+			return response()->json(['message' => __('responses.notification_forbidden')], 403);
 		}
 		$notification = tap($notification)->update(['is_read' => true]);
 		return response()->json($notification->load('fromUser'));
@@ -28,6 +28,6 @@ class NotificationController extends Controller
 	{
 		Notification::where(['to_user_id' => auth()->id(), 'is_read' => false])
 			->update(['is_read' => true]);
-		return response()->json(['message' => 'All notifications marked read']);
+		return response()->json(['message' => __('responses.notification_all_read')]);
 	}
 }

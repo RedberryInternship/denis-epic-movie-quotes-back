@@ -22,7 +22,7 @@ class ProfileController extends Controller
 		if (isset($attributes['password']) && !$this->passwordIsCorrect($attributes['current_password']))
 		{
 			return response()->json(
-				['errors' => ['current_password' => ['The password is incorrect']]],
+				['errors' => ['current_password' => [__('auth.password')]]],
 				403
 			);
 		}
@@ -35,7 +35,7 @@ class ProfileController extends Controller
 
 		auth()->user()->update($attributes);
 
-		return response()->json(['message' => 'Your details have been updated']);
+		return response()->json(['message' => __('responses.profile_updated')]);
 	}
 
 	protected function passwordIsCorrect($password)
