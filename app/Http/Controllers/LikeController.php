@@ -22,7 +22,7 @@ class LikeController extends Controller
 
 		if ($args['is_unlike_attempt'])
 		{
-			return response()->json(['message' => 'Likes have been deleted']);
+			return response()->json(['message' => __('responses.like_deleted')]);
 		}
 
 		Like::create([
@@ -43,6 +43,6 @@ class LikeController extends Controller
 			NotificationEvent::dispatch($notification);
 		}
 
-		return response()->json(['message' => 'Quote liked successfully.']);
+		return response()->json(['message' => __('responses.like_success')]);
 	}
 }

@@ -37,7 +37,7 @@ class QuoteController extends Controller
 		$movie = Movie::find($request['movie_id']);
 		if ($movie->user_id !== auth()->id())
 		{
-			return response()->json(['message' => 'You can only add quotes to movies submitted by you'], 403);
+			return response()->json(['message' => __('responses.quote_add_forbidden')], 403);
 		}
 
 		$image = request()->file('image');
@@ -46,7 +46,7 @@ class QuoteController extends Controller
 
 		Quote::create($attributes);
 
-		return response()->json(['message' => 'Quote added successfully']);
+		return response()->json(['message' => __('responses.quote_add_success')]);
 	}
 
 	public function update(Quote $quote, QuoteUpdateRequest $request)
@@ -55,7 +55,7 @@ class QuoteController extends Controller
 
 		if ($quote->user_id !== auth()->id())
 		{
-			return response()->json(['message' => 'You can only edit quotes added by you'], 403);
+			return response()->json(['message' => __('responses.quote_update_forbidden')], 403);
 		}
 
 		$image = request()->file('image');
@@ -65,18 +65,18 @@ class QuoteController extends Controller
 			$attributes['image'] = $image->store('images');
 		}
 		$quote->update($attributes);
-		return response()->json(['message' => 'Quote updated successfully']);
+		return response()->json(['message' => __('responses.quote_update_success')]);
 	}
 
 	public function destroy(Quote $quote)
 	{
 		if ($quote->user_id !== auth()->id())
 		{
-			return response()->json(['message' => 'You can only delete quotes added by you'], 403);
+			return response()->json(['message' => __('responses.quote_delete_forbidden')], 403);
 		}
 		Storage::delete($quote->getRawOriginal('image'));
 		$quote->delete();
-		return response()->json(['message' => 'Quote deleted successfully']);
+		return response()->json(['message' => __('responses.quote_delete_success')]);
 	}
 
 	protected function getAttributes($request)

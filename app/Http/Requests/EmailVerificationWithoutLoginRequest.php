@@ -39,7 +39,7 @@ class EmailVerificationWithoutLoginRequest extends EmailVerificationRequest
 
 		if ($email->verified_at)
 		{
-			return 'This email address is already verified';
+			return __('responses.email_already_verified');
 		}
 
 		$email->forceFill([

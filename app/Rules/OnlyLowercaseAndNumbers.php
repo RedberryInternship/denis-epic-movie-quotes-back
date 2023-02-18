@@ -10,7 +10,7 @@ class OnlyLowercaseAndNumbers implements InvokableRule
 	{
 		if (!preg_match('/^[a-z0-9_\-]+$/', $value))
 		{
-			$fail('The :attribute can only contain lowercase characters and numbers');
+			$fail(__('validation.only_lowercase_and_nums', ['attribute' => $attribute]));
 		}
 	}
 }

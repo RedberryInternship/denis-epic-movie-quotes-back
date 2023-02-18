@@ -57,7 +57,7 @@ class MovieController extends Controller
 		$genres = explode(',', $request['genres']);
 		$movie->genres()->attach($genres);
 
-		return response()->json(['message' => 'Movie added successfully']);
+		return response()->json(['message' => __('responses.movie_success')]);
 	}
 
 	public function update(Movie $movie, MovieUpdateRequest $request)
@@ -68,7 +68,7 @@ class MovieController extends Controller
 
 		if ($movie->user_id !== auth()->id())
 		{
-			return response()->json(['message' => 'You can only edit movies added by you'], 403);
+			return response()->json(['message' => __('responses.movie_forbidden')], 403);
 		}
 
 		$image = request()->file('image');
@@ -82,18 +82,18 @@ class MovieController extends Controller
 		$genres = explode(',', $request['genres']);
 		$movie->genres()->sync($genres);
 
-		return response()->json(['message' => 'Movie updated successfully']);
+		return response()->json(['message' => __('responses.movie_update_success')]);
 	}
 
 	public function destroy(Movie $movie)
 	{
 		if ($movie->user_id !== auth()->id())
 		{
-			return response()->json(['message' => 'You can only delete movies added by you'], 403);
+			return response()->json(['message' => __('responses.movie_delete_forbidden')], 403);
 		}
 		Storage::delete($movie->getRawOriginal('image'));
 		$movie->delete();
-		return response()->json(['message' => 'Movie deleted successfully']);
+		return response()->json(['message' => __('responses.movie_delete_success')]);
 	}
 
 	protected function reformatTranslatablesToArrays($attributes, $translatableKeys)
