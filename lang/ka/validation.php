@@ -34,7 +34,7 @@ return [
 		'director_ka'           => 'რეჟისორის სახელი',
 		'body_en'               => 'ციტატის ტექსტი',
 		'body_ka'               => 'ციტატის ტექსტი',
-		'release_year'          => 'release year',
+		'release_year'          => 'გამოშვების წელი',
 		'budget'                => 'ბიუჯეტი',
 		'movie'                 => 'ფილმი',
 	],
