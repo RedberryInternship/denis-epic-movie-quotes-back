@@ -8,6 +8,8 @@
 * [Getting Started](#getting-started)
 * [Configuration](#configuration)
 * [Development](#development)
+* [Database Structure](#database-structure)
+* [Live Deployment](#live-deployment)
 
 #
 
@@ -52,6 +54,7 @@
    DB_DATABASE=epic_movie_quotes <br>
    DB_USERNAME=<your_username> <br>
    DB_PASSWORD=<your_password> <br>
+
 2. Modify mail configuration in your `.env` file:
    > MAIL_MAILER=&lt;mailer&gt; <br>
    MAIL_HOST=&lt;example.com&gt; <br>
@@ -60,7 +63,21 @@
    MAIL_PASSWORD=&lt;password&gt; <br>
    MAIL_ENCRYPTION=&lt;your_password&gt; <br>
 
-3. Run database migrations:
+3. Modify Pusher configuration in your `.env` file:
+   > PUSHER_APP_ID=
+    PUSHER_APP_KEY=
+    PUSHER_APP_SECRET=
+    PUSHER_HOST=
+    PUSHER_PORT=
+    PUSHER_SCHEME=https
+    PUSHER_APP_CLUSTER=eu
+
+4. Assign values to these variables based on your frontend URL:
+   > FRONTEND_URL=https://frontend.domain.com
+    SANCTUM_STATEFUL_DOMAINS=*.domain.com
+    SESSION_DOMAIN=.domain.com
+
+5. Run database migrations:
     ```shell
         php artisan migrate
     ```
@@ -87,3 +104,18 @@ Reformat `.php` files after any changes using PHP Coding Standards Fixer:
 ...or set up your IDE to reformat files automatically with rules defined inside `.php-cs-fixer.php`
 
 #
+
+## Database Structure
+
+
+[DrawSQL Diagram](https://drawsql.app/teams/team-denis/diagrams/final-movie-quotes)
+
+![Database Structure](readme/assets/db-structure-drawsql.png)
+
+#
+
+## Live Deployment
+
+Frontend: https://moviequotes.denis.redberryinternship.ge 
+
+Backend: https://api.moviequotes.denis.redberryinternship.ge
