@@ -88,9 +88,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
 	public function getProfilePictureAttribute($value): string
 	{
-		if (str_starts_with($value, 'http'))
+		if (str_starts_with($value, 'http') || !$value)
 		{
-			return $value;
+			return $value ?: '';
 		}
 
 		return Storage::url($value);
