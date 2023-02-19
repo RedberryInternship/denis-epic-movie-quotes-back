@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Storage;
+use Str;
 
 class Quote extends Model
 {
@@ -19,7 +20,7 @@ class Quote extends Model
 
 	public function getImageAttribute($value): string
 	{
-		if (str_starts_with($value, 'http'))
+		if (Str::startsWith($value, 'http'))
 		{
 			return $value;
 		}
@@ -57,12 +58,12 @@ class Quote extends Model
 		$cleanSearchQuery = $this->removeCharIfStartsWith($searchQuery, '#');
 		$cleanSearchQuery = $this->removeCharIfStartsWith($cleanSearchQuery, '@');
 
-		if (!str_starts_with($searchQuery, '@'))
+		if (!Str::startsWith($searchQuery, '@'))
 		{
 			$sqlQuery->where('body', 'LIKE', "%$cleanSearchQuery%")
 					 ->orWhere('body->ka', 'LIKE', "%$cleanSearchQuery%");
 		}
-		if (!str_starts_with($searchQuery, '#'))
+		if (!Str::startsWith($searchQuery, '#'))
 		{
 			$sqlQuery->orWhereHas('movie', function ($query) use ($cleanSearchQuery) {
 				$query->where('title', 'LIKE', "%$cleanSearchQuery%")
@@ -78,7 +79,7 @@ class Quote extends Model
 
 	protected function removeCharIfStartsWith($string, $character)
 	{
-		if (str_starts_with($string, $character))
+		if (Str::startsWith($string, $character))
 		{
 			$string = substr($string, 1);
 		}
