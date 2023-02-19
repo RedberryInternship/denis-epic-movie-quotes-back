@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Storage;
+use Str;
 
 class Movie extends Model
 {
@@ -30,7 +31,7 @@ class Movie extends Model
 
 	public function getImageAttribute($value): string
 	{
-		if (str_starts_with($value, 'http'))
+		if (Str::startsWith($value, 'http'))
 		{
 			return $value;
 		}

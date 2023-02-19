@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Storage;
+use Str;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -88,9 +89,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
 	public function getProfilePictureAttribute($value): string
 	{
-		if (str_starts_with($value, 'http'))
+		if (Str::startsWith($value, 'http') || !$value)
 		{
-			return $value;
+			return $value ?: '';
 		}
 
 		return Storage::url($value);
