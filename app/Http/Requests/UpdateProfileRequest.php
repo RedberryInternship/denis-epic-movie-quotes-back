@@ -12,7 +12,7 @@ class UpdateProfileRequest extends FormRequest
 		return [
 			'username'         => ['max:15', 'min:3', 'unique:users,username', new OnlyLowercaseAndNumbers],
 			'current_password' => ['nullable'],
-			'password'         => ['confirmed', 'max:255', 'min:8', new OnlyLowercaseAndNumbers],
+			'password'         => ['nullable', 'confirmed', 'max:255', 'min:8', new OnlyLowercaseAndNumbers],
 			'image'            => ['nullable', 'image'],
 		];
 	}

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfileRequest;
-use Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
@@ -19,14 +18,6 @@ class ProfileController extends Controller
 	{
 		$attributes = $request->validated();
 
-		if (isset($attributes['password']) && !$this->passwordIsCorrect($attributes['current_password']))
-		{
-			return response()->json(
-				['errors' => ['current_password' => [__('auth.password')]]],
-				403
-			);
-		}
-
 		if (isset($attributes['image']))
 		{
 			$attributes['profile_picture'] = $this->uploadImage();
@@ -36,11 +27,6 @@ class ProfileController extends Controller
 		auth()->user()->update($attributes);
 
 		return response()->json(['message' => __('responses.profile_updated')]);
-	}
-
-	protected function passwordIsCorrect($password)
-	{
-		return Hash::check($password, auth()->user()->password);
 	}
 
 	protected function uploadImage(): string
