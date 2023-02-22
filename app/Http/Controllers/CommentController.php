@@ -29,6 +29,7 @@ class CommentController extends Controller
 					'is_comment'   => true,
 					'from_user_id' => $attributes['user_id'],
 					'to_user_id'   => $targetQuote->user->id,
+					'quote_id'     => $targetQuote->id,
 				]
 			);
 			NotificationEvent::dispatch($notification);

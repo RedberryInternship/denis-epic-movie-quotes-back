@@ -17,7 +17,7 @@ class NotificationEvent implements ShouldBroadcast
 
 	public function __construct(Notification $notification)
 	{
-		$this->notification = $notification->load('fromUser');
+		$this->notification = $notification->load('fromUser', 'quote');
 	}
 
 	public function broadcastOn()
