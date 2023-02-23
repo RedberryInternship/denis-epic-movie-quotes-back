@@ -9,6 +9,7 @@ class NotificationController extends Controller
 	public function index()
 	{
 		$notifications = Notification::where('to_user_id', auth()->id())
+			->with('quote')
 			->with('fromUser')
 			->orderBy('id', 'desc')->limit(15)->get();
 		return response()->json(['data' => $notifications]);

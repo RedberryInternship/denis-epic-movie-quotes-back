@@ -38,6 +38,7 @@ class LikeController extends Controller
 					'is_comment'   => false,
 					'from_user_id' => $userID,
 					'to_user_id'   => $targetQuote->user->id,
+					'quote_id'     => $targetQuote->id,
 				]
 			);
 			NotificationEvent::dispatch($notification);
