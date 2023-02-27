@@ -6,7 +6,7 @@ use App\Rules\CurrentYearOrLess;
 use App\Rules\Language;
 use Illuminate\Foundation\Http\FormRequest;
 
-class MovieStoreRequest extends FormRequest
+class StoreMovieRequest extends FormRequest
 {
 	public function rules()
 	{

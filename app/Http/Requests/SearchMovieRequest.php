@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MovieSearchRequest extends FormRequest
+class SearchMovieRequest extends FormRequest
 {
 	public function rules()
 	{

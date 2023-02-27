@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DestroyQuoteRequest;
-use App\Http\Requests\QuoteSearchRequest;
-use App\Http\Requests\QuoteStoreRequest;
-use App\Http\Requests\QuoteUpdateRequest;
+use App\Http\Requests\SearchQuoteRequest;
+use App\Http\Requests\StoreQuoteRequest;
+use App\Http\Requests\UpdateQuoteRequest;
 use App\Models\Quote;
 use Illuminate\Support\Facades\Storage;
 
 class QuoteController extends Controller
 {
-	public function index(QuoteSearchRequest $request)
+	public function index(SearchQuoteRequest $request)
 	{
 		$searchQuery = $request->validated('search_query');
 
@@ -30,7 +30,7 @@ class QuoteController extends Controller
 		return response()->json($quotes);
 	}
 
-	public function store(QuoteStoreRequest $request)
+	public function store(StoreQuoteRequest $request)
 	{
 		$attributes = $this->getAttributes($request);
 		$image = request()->file('image');
@@ -42,7 +42,7 @@ class QuoteController extends Controller
 		return response()->json(['message' => __('responses.quote_add_success')]);
 	}
 
-	public function update(Quote $quote, QuoteUpdateRequest $request)
+	public function update(Quote $quote, UpdateQuoteRequest $request)
 	{
 		$attributes = $this->getAttributes($request);
 		$image = request()->file('image');
