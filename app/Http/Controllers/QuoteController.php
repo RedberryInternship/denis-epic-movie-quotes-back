@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DestroyQuoteRequest;
 use App\Http\Requests\QuoteSearchRequest;
 use App\Http\Requests\QuoteStoreRequest;
 use App\Http\Requests\QuoteUpdateRequest;
-use App\Models\Movie;
 use App\Models\Quote;
 use Storage;
 
@@ -33,13 +33,6 @@ class QuoteController extends Controller
 	public function store(QuoteStoreRequest $request)
 	{
 		$attributes = $this->getAttributes($request);
-
-		$movie = Movie::find($request['movie_id']);
-		if ($movie->user_id !== auth()->id())
-		{
-			return response()->json(['message' => __('responses.quote_add_forbidden')], 403);
-		}
-
 		$image = request()->file('image');
 		$attributes['image'] = $image->store('images');
 		$attributes['user_id'] = auth()->user()->id;
@@ -52,12 +45,6 @@ class QuoteController extends Controller
 	public function update(Quote $quote, QuoteUpdateRequest $request)
 	{
 		$attributes = $this->getAttributes($request);
-
-		if ($quote->user_id !== auth()->id())
-		{
-			return response()->json(['message' => __('responses.quote_update_forbidden')], 403);
-		}
-
 		$image = request()->file('image');
 		if ($image)
 		{
@@ -68,12 +55,8 @@ class QuoteController extends Controller
 		return response()->json(['message' => __('responses.quote_update_success')]);
 	}
 
-	public function destroy(Quote $quote)
+	public function destroy(Quote $quote, DestroyQuoteRequest $request)
 	{
-		if ($quote->user_id !== auth()->id())
-		{
-			return response()->json(['message' => __('responses.quote_delete_forbidden')], 403);
-		}
 		Storage::delete($quote->getRawOriginal('image'));
 		$quote->delete();
 		return response()->json(['message' => __('responses.quote_delete_success')]);
