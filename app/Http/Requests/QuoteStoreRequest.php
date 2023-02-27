@@ -2,10 +2,17 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Movie;
 use Illuminate\Foundation\Http\FormRequest;
 
 class QuoteStoreRequest extends FormRequest
 {
+	public function authorize()
+	{
+		$movie = Movie::find($this->movie_id);
+		return $movie->user_id === auth()->id();
+	}
+
 	public function rules()
 	{
 		return [

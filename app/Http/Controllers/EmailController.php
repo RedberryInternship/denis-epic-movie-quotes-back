@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEmailRequest;
+use App\Http\Requests\UpdateEmailRequest;
 use App\Models\Email;
 use App\Notifications\VerifyEmailNotification;
 
@@ -16,7 +17,7 @@ class EmailController extends Controller
 		return response()->json(['message' => __('responses.email_created')]);
 	}
 
-	public function destroy(Email $email)
+	public function destroy(Email $email, UpdateEmailRequest $request)
 	{
 		if (!$email->user() === auth()->user())
 		{
@@ -33,7 +34,7 @@ class EmailController extends Controller
 		return response()->json(['message' => __('responses.email_delete_success')]);
 	}
 
-	public function makePrimary(Email $email)
+	public function makePrimary(Email $email, UpdateEmailRequest $request)
 	{
 		if (!$email->user() === auth()->user())
 		{

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
-class QuoteUpdateRequest extends QuoteStoreRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class DestroyQuoteRequest extends FormRequest
 {
 	public function authorize()
 	{
@@ -11,8 +13,6 @@ class QuoteUpdateRequest extends QuoteStoreRequest
 
 	public function rules()
 	{
-		$rules = parent::rules();
-		$rules['image'] = ['nullable', 'image'];
-		return $rules;
+		return [];
 	}
 }

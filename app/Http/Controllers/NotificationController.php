@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateNotificationRequest;
 use App\Models\Notification;
 
 class NotificationController extends Controller
@@ -15,12 +16,8 @@ class NotificationController extends Controller
 		return response()->json(['data' => $notifications]);
 	}
 
-	public function markAsRead(Notification $notification)
+	public function markAsRead(Notification $notification, UpdateNotificationRequest $request)
 	{
-		if ($notification->to_user_id !== auth()->id())
-		{
-			return response()->json(['message' => __('responses.notification_forbidden')], 403);
-		}
 		$notification = tap($notification)->update(['is_read' => true]);
 		return response()->json($notification->load('fromUser'));
 	}
