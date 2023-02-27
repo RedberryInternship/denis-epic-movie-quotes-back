@@ -72,12 +72,16 @@
     PUSHER_SCHEME=https <br>
     PUSHER_APP_CLUSTER=eu <br>
 
-4. Assign values to these variables based on your frontend URL:
+4. Configure variables used by Socialite to enable Google OAuth:
+    > GOOGLE_CLIENT_ID= <br>
+     GOOGLE_CLIENT_SECRET= <br>
+
+5. Assign values to these variables based on your frontend URL:
    > FRONTEND_URL=https://frontend.domain.com <br>
     SANCTUM_STATEFUL_DOMAINS=*.domain.com <br>
     SESSION_DOMAIN=.domain.com <br>
 
-5. Run database migrations:
+6. Run database migrations:
     ```shell
         php artisan migrate
     ```
