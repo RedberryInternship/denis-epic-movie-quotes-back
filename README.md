@@ -64,20 +64,24 @@
    MAIL_ENCRYPTION=&lt;your_password&gt; <br>
 
 3. Modify Pusher configuration in your `.env` file:
-   > PUSHER_APP_ID=
-    PUSHER_APP_KEY=
-    PUSHER_APP_SECRET=
-    PUSHER_HOST=
-    PUSHER_PORT=
-    PUSHER_SCHEME=https
-    PUSHER_APP_CLUSTER=eu
+   > PUSHER_APP_ID= <br>
+    PUSHER_APP_KEY= <br>
+    PUSHER_APP_SECRET= <br>
+    PUSHER_HOST= <br>
+    PUSHER_PORT= <br>
+    PUSHER_SCHEME=https <br>
+    PUSHER_APP_CLUSTER=eu <br>
 
-4. Assign values to these variables based on your frontend URL:
-   > FRONTEND_URL=https://frontend.domain.com
-    SANCTUM_STATEFUL_DOMAINS=*.domain.com
-    SESSION_DOMAIN=.domain.com
+4. Configure variables used by Socialite to enable Google OAuth:
+    > GOOGLE_CLIENT_ID= <br>
+     GOOGLE_CLIENT_SECRET= <br>
 
-5. Run database migrations:
+5. Assign values to these variables based on your frontend URL:
+   > FRONTEND_URL=https://frontend.domain.com <br>
+    SANCTUM_STATEFUL_DOMAINS=*.domain.com <br>
+    SESSION_DOMAIN=.domain.com <br>
+
+6. Run database migrations:
     ```shell
         php artisan migrate
     ```
