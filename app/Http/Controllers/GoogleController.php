@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Email;
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;

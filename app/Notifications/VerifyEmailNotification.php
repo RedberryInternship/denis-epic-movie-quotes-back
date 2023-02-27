@@ -5,7 +5,7 @@ namespace App\Notifications;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
-use URL;
+use Illuminate\Support\Facades\URL;
 
 class VerifyEmailNotification extends VerifyEmail
 {
