@@ -23,6 +23,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\ResetPasswordController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/heartbeat', fn () => response()->json(['success' => true]));
 
