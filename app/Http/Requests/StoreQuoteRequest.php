@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Movie;
 use Illuminate\Foundation\Http\FormRequest;
 
-class QuoteStoreRequest extends FormRequest
+class StoreQuoteRequest extends FormRequest
 {
 	public function authorize()
 	{

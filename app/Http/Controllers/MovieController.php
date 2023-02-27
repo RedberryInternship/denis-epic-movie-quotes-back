@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DestroyMovieRequest;
-use App\Http\Requests\MovieSearchRequest;
-use App\Http\Requests\MovieStoreRequest;
-use App\Http\Requests\MovieUpdateRequest;
+use App\Http\Requests\SearchMovieRequest;
+use App\Http\Requests\StoreMovieRequest;
+use App\Http\Requests\UpdateMovieRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Movie;
 use App\Models\Quote;
@@ -31,7 +31,7 @@ class MovieController extends Controller
 		);
 	}
 
-	public function index(MovieSearchRequest $request)
+	public function index(SearchMovieRequest $request)
 	{
 		$searchQuery = $request->validated('search_query');
 		$movies = Movie::where('user_id', auth()->user()->id)
@@ -43,7 +43,7 @@ class MovieController extends Controller
 		return response()->json(['data' => $movies]);
 	}
 
-	public function store(MovieStoreRequest $request)
+	public function store(StoreMovieRequest $request)
 	{
 		$attributes = $request->validated();
 		$attributes = $this->reformatTranslatablesToArrays($attributes, ['title', 'description', 'director']);
@@ -61,7 +61,7 @@ class MovieController extends Controller
 		return response()->json(['message' => __('responses.movie_success')]);
 	}
 
-	public function update(Movie $movie, MovieUpdateRequest $request)
+	public function update(Movie $movie, UpdateMovieRequest $request)
 	{
 		$attributes = $request->validated();
 		$attributes = $this->reformatTranslatablesToArrays($attributes, ['title', 'description', 'director']);

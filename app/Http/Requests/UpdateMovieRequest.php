@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-class MovieUpdateRequest extends MovieStoreRequest
+class UpdateMovieRequest extends StoreMovieRequest
 {
 	public function authorize()
 	{
-		return $this->movie->user_id === auth()->id();
+		return $this->quote->user_id === auth()->id();
 	}
 
 	public function rules()

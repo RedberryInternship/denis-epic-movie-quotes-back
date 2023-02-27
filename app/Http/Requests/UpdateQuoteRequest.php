@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-class QuoteUpdateRequest extends QuoteStoreRequest
+class UpdateQuoteRequest extends StoreQuoteRequest
 {
 	public function authorize()
 	{
-		return $this->quote->user_id === auth()->id();
+		return $this->movie->user_id === auth()->id();
 	}
 
 	public function rules()
