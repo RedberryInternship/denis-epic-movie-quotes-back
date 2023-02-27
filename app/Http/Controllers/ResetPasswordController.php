@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ResetPasswordRequest;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Password;
-use Str;
+use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {

@@ -7,7 +7,7 @@ use App\Http\Requests\QuoteStoreRequest;
 use App\Http\Requests\QuoteUpdateRequest;
 use App\Models\Movie;
 use App\Models\Quote;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class QuoteController extends Controller
 {
