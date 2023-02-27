@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DestroyMovieRequest;
 use App\Http\Requests\MovieSearchRequest;
 use App\Http\Requests\MovieStoreRequest;
 use App\Http\Requests\MovieUpdateRequest;
@@ -66,11 +67,6 @@ class MovieController extends Controller
 		$attributes = $this->reformatTranslatablesToArrays($attributes, ['title', 'description', 'director']);
 		unset($attributes['genres'], $attributes['image']);
 
-		if ($movie->user_id !== auth()->id())
-		{
-			return response()->json(['message' => __('responses.movie_forbidden')], 403);
-		}
-
 		$image = request()->file('image');
 		if ($image)
 		{
@@ -85,7 +81,7 @@ class MovieController extends Controller
 		return response()->json(['message' => __('responses.movie_update_success')]);
 	}
 
-	public function destroy(Movie $movie)
+	public function destroy(Movie $movie, DestroyMovieRequest $request)
 	{
 		if ($movie->user_id !== auth()->id())
 		{

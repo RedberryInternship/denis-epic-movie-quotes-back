@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
-class MovieUpdateRequest extends MovieStoreRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class DestroyMovieRequest extends FormRequest
 {
 	public function authorize()
 	{
@@ -11,8 +13,6 @@ class MovieUpdateRequest extends MovieStoreRequest
 
 	public function rules()
 	{
-		$rules = parent::rules();
-		$rules['image'] = ['nullable', 'image'];
-		return $rules;
+		return [];
 	}
 }
