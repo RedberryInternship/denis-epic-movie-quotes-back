@@ -6,10 +6,6 @@ use App\Models\User;
 
 class UserChannel
 {
-	public function __construct()
-	{
-	}
-
 	public function join(User $user, $id)
 	{
 		return $user->id === +$id;
